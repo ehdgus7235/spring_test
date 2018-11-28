@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team">
+
+	<insert id="create" parameterType="TeamDTO">
+		INSERT INTO TEAM(no, name, gender, hobby, skills, phone, zipcode, address, address2, grpno)
+		VALUES((select nvl(max(no), 0)+1 from team), #{name}, #{gender}, #{hobby}, #{skills}, #{phone}, #{zipcode, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, #{address2, jdbcType=VARCHAR},
+		(select nvl(max(grpno), 0)+1 from team))                             
+	</insert>
+	
+	<update id="update" parameterType="TeamDTO">
+		UPDATE TEAM             
+		SET hobby=#{hobby}, skills=#{skills}, phone=#{phone}, 
+		zipcode=#{zipcode, jdbcType=VARCHAR}, address=#{address, jdbcType=VARCHAR}, address2=#{address2, jdbcType=VARCHAR}
+		WHERE no=#{no}                
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from team
+		where no = #{no}
+	</delete>
+	
+	<select id="read" parameterType="int" resultType="TeamDTO">
+		select *
+		from team
+		where no = #{no}
+	</select>
+
+	<select id="total" parameterType="map" resultType="int">
+		select count(*) from team
+		<where>
+			<if test="col=='name'">
+			name like '%'||#{word}||'%' 
+			</if>
+			<if test="col=='skills'">
+			skills like '%'||#{word}||'%' 
+			</if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="Map" resultType="TeamDTO">
+		Select no, name, gender, skills, phone, 
+			grpno, indent, ansnum, r             
+		from(                                 
+			select no, name, gender, skills, phone, 
+			grpno, indent, ansnum, rownum as r    
+			from(	                     
+				SELECT no, name, gender, skills, phone,
+				grpno, indent, ansnum         
+				FROM TEAM                        
+				<where>
+					<if test="col=='name'">
+					name like '%'||#{word}||'%' 
+					</if>
+					<if test="col=='skills'">
+					skills like '%'||#{word}||'%' 
+					</if>
+				</where>
+				ORDER BY grpno desc, ansnum         
+			)                                      
+		)                         
+		<![CDATA[                 
+		where r >= #{sno} and r <=#{eno}                    
+		]]>
+	</select>
+	
+	<select id="replyRead" parameterType="int" resultType="TeamDTO">
+		select no, name, grpno, indent, ansnum
+		from team
+		where no = #{no}
+	</select>
+	
+	<insert id="replyCreate" parameterType="TeamDTO">
+		INSERT INTO TEAM(no, name, gender, hobby, skills, phone, zipcode, address, address2, grpno, indent, ansnum, refnum)
+		VALUES((select nvl(max(no), 0)+1 from team), #{name}, #{gender}, #{hobby}, #{skills}, #{phone}, #{zipcode, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, #{address2, jdbcType=VARCHAR},
+		#{grpno}, #{indent}+1, #{ansnum}+1, #{no})                                                                                    
+	</insert>
+	
+	<update id="increaseAnsnum" parameterType="Map">
+		update team
+		set ansnum = ansnum+1
+		where grpno = #{grpno}
+		and ansnum > #{ansnum}
+	</update>
+	
+	<select id="checkRefnum" parameterType="int" resultType="int">
+		select count(refnum) from team
+		where refnum = #{no}
+	</select>
+	
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memo">
+
+	<select id="list" parameterType="Map" resultType="MemoDTO">
+		select memono, title, wdate, viewcnt, grpno, indent, ansnum, r                                      
+		from(                                                                                            
+			select memono, title, wdate, viewcnt, grpno, indent, ansnum, rownum as r                        
+			from(                                                                                              
+				select memono, title, to_char(wdate, 'yyyy-mm-dd') wdate, viewcnt, grpno, indent, ansnum 
+				from memo 
+	            <where>
+	            	<if test="col=='title'">
+						title like '%'||#{word}||'%'                                                             	            	
+	            	</if>
+	            	<if test="col=='content'">
+						content like '%'||#{word}||'%'                                                             	            	
+	            	</if>
+	            </where>                                                       
+				order by grpno desc, ansnum                                                                  
+	        )
+	    <![CDATA[                                                                                 
+		)where r>=#{sno} and r<=#{eno}                                                                                  
+		]]>
+	</select>
+	
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from memo
+		<where>
+           	<if test="col=='title'">
+				title like '%'||#{word}||'%'                                                             	            	
+           	</if>
+           	<if test="col=='content'">
+				content like '%'||#{word}||'%'                                                             	            	
+           	</if>
+        </where> 
+	</select>
+	
+	<insert id="create" parameterType="MemoDTO">
+		insert into memo(memono, title, content, wdate, grpno)
+		values(memo_seq.nextval, #{title}, #{content}, sysdate,   
+		(select nvl(max(grpno), 0) +1 from memo))       
+	</insert>
+	
+	<select id="read" parameterType="int" resultType="MemoDTO">
+		select *
+		from memo
+		where memono = #{memono}
+	</select>
+	
+	<update id="update" parameterType="MemoDTO">
+		update memo
+		set title = #{title}, content = #{content}
+		where memono = #{memono}
+	</update>
+	
+	<update id="updateViewcnt" parameterType="int">
+		update memo
+		set viewcnt = viewcnt + 1
+		where memono = #{memono}
+	</update>
+	
+	<select id="replyRead" parameterType="int" resultType="MemoDTO">
+		select memono, title, grpno, indent, ansnum
+		from memo
+		where memono = #{memono}
+	</select>
+	
+	<update id="upAnsnum" parameterType="Map">
+		update memo
+		set ansnum = ansnum+1
+		where grpno = #{grpno} and ansnum > #{ansnum}
+	</update>
+	
+	<insert id="replyCreate" parameterType="MemoDTO">
+		insert into memo(memono, title, content, wdate, grpno, indent, ansnum, refnum)
+		values(memo_seq.nextval, #{title}, #{content}, sysdate, #{grpno}, #{indent}+1, #{ansnum}+1, #{memono})
+	</insert>
+	
+	<select id="checkRefnum" parameterType="int" resultType="int">
+		select count(refnum)
+		from memo
+		where refnum = #{memono}
+	</select>
+	
+	<delete id="delete">
+		delete from memo
+		where memono = #{memono}
+	</delete>
+	
+</mapper>

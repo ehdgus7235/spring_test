@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="/gallery/create" extends="main">
+		<put-attribute name="title" value="회원가입"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/createForm.jsp" />
+	</definition>
+	<definition name="/gallery/createProc" extends="main">
+		<put-attribute name="title" value="회원가입처리"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/createProc.jsp" />
+	</definition>
+	<definition name="/gallery/update" extends="main">
+		<put-attribute name="title" value="gallery 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/updateForm.jsp" />
+	</definition>
+	<definition name="/gallery/updateProc" extends="main">
+		<put-attribute name="title" value="gallery 수정처리"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/updateProc.jsp" />
+	</definition>
+	<definition name="/gallery/updatePasswd" extends="main">
+		<put-attribute name="title" value="gallery Passwd 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/updatePasswdForm.jsp" />
+	</definition>
+	<definition name="/gallery/updatePasswdProc" extends="main">
+		<put-attribute name="title" value="gallery Passwd 수정 처리"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/updatePasswdProc.jsp" />
+	</definition>
+	<definition name="/gallery/delete" extends="main">
+		<put-attribute name="title" value="gallery 삭제"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/deleteForm.jsp" />
+	</definition>
+	<definition name="/gallery/read" extends="main">
+		<put-attribute name="title" value="gallery 조회"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/read.jsp" />
+	</definition>
+	<definition name="/gallery/list" extends="main">
+		<put-attribute name="title" value="gallery 목록"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/gallery/list.jsp" />
+	</definition>
+</tiles-definitions> 

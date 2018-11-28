@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="/member/agree" extends="main">
+		<put-attribute name="title" value="약관 동의"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/agreement.jsp" />
+	</definition>
+	<definition name="/member/create" extends="main">
+		<put-attribute name="title" value="회원가입"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/createForm.jsp" />
+	</definition>
+	<definition name="/member/createProc" extends="main">
+		<put-attribute name="title" value="회원가입처리"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/createProc.jsp" />
+	</definition>
+	<definition name="/member/pcreate" extends="main">
+		<put-attribute name="title" value="중복확인"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/pcreateProc.jsp" />
+	</definition>
+	<definition name="/member/login" extends="main">
+		<put-attribute name="title" value="로그인"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/loginForm.jsp" />
+	</definition>
+	<definition name="/member/loginProc" extends="main">
+		<put-attribute name="title" value="로그인처리"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/loginProc.jsp" />
+	</definition>
+	<definition name="/member/update" extends="main">
+		<put-attribute name="title" value="member 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/updateForm.jsp" />
+	</definition>
+	<definition name="/member/updatePasswd" extends="main">
+		<put-attribute name="title" value="member Passwd 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/updatePasswdForm.jsp" />
+	</definition>
+	<definition name="/member/updatePasswdProc" extends="main">
+		<put-attribute name="title" value="member Passwd 수정 처리"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/updatePasswdProc.jsp" />
+	</definition>
+	<definition name="/member/updateFile" extends="main">
+		<put-attribute name="title" value="member 사진 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/updateFileForm.jsp" />
+	</definition>
+	<definition name="/member/delete" extends="main">
+		<put-attribute name="title" value="member 삭제"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/deleteForm.jsp" />
+	</definition>
+	<definition name="/member/idpwFind" extends="main">
+		<put-attribute name="title" value="member idpw 찾기"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/idPasswdFind.jsp" />
+	</definition>
+	<definition name="/member/idFind" extends="main">
+		<put-attribute name="title" value="member id 찾기"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/idFind.jsp" />
+	</definition>
+	<definition name="/member/pwFind" extends="main">
+		<put-attribute name="title" value="member pw 찾기"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/pwFind.jsp" />
+	</definition>
+	<definition name="/member/read" extends="main">
+		<put-attribute name="title" value="member 조회"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/read.jsp" />
+	</definition>
+	<definition name="/admin/list" extends="main">
+		<put-attribute name="title" value="member 목록"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/list.jsp" />
+	</definition>
+</tiles-definitions> 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="/memo/create" extends="main">
+		<put-attribute name="title" value="memo 생성"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/memo/createForm.jsp" />
+	</definition>
+	
+	<definition name="/memo/update" extends="main">
+		<put-attribute name="title" value="memo 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/memo/updateForm.jsp" />
+	</definition>
+	
+	<definition name="/memo/delete" extends="main">
+		<put-attribute name="title" value="memo 삭제"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/memo/deleteForm.jsp" />
+	</definition>
+	
+	<definition name="/memo/reply" extends="main">
+		<put-attribute name="title" value="memo 답변"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/memo/replyForm.jsp" />
+	</definition>
+	
+	<definition name="/memo/read" extends="main">
+		<put-attribute name="title" value="memo 조회"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/memo/read.jsp" />
+	</definition>
+	
+	<definition name="/memo/list" extends="main">
+		<put-attribute name="title" value="memo 목록"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/memo/list.jsp" />
+	</definition>
+
+	<definition name="/team/create" extends="main">
+		<put-attribute name="title" value="team 생성"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/team/createForm.jsp" />
+	</definition>
+	
+	<definition name="/team/update" extends="main">
+		<put-attribute name="title" value="team 수정"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/team/updateForm.jsp" />
+	</definition>
+	
+	<definition name="/team/delete" extends="main">
+		<put-attribute name="title" value="team 삭제"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/team/deleteForm.jsp" />
+	</definition>
+	
+	<definition name="/team/reply" extends="main">
+		<put-attribute name="title" value="team 답변"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/team/replyForm.jsp" />
+	</definition>
+	
+	<definition name="/team/read" extends="main">
+		<put-attribute name="title" value="team 조회"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/team/read.jsp" />
+	</definition>
+	
+	<definition name="/team/list" extends="main">
+		<put-attribute name="title" value="team 목록"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/team/list.jsp" />
+	</definition>
+
+</tiles-definitions> 

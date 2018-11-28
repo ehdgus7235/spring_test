@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="/board/create" extends="main">
+		<put-attribute name="title" value="회원가입"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/board/createForm.jsp" />
+	</definition>
+	<definition name="/board/update" extends="main">
+		<put-attribute name="title" value="수정"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/board/updateForm.jsp" />
+	</definition>
+	<definition name="/board/delete" extends="main">
+		<put-attribute name="title" value="삭제"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/board/deleteForm.jsp" />
+	</definition>
+	<definition name="/board/read" extends="main">
+		<put-attribute name="title" value="조회"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/board/read.jsp" />
+	</definition>
+	<definition name="/board/list" extends="main">
+		<put-attribute name="title" value="목록"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/board/list.jsp" />
+	</definition>
+	<definition name="/board/reply" extends="main"> 
+        <put-attribute name="title" value="답변" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/board/replyForm.jsp" /> 
+    </definition>  
+</tiles-definitions> 

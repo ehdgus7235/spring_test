@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gallery">
+
+	<insert id="create" parameterType="GalleryDTO">
+		insert into gallery(gno, title, udate, writer, content, fname, pw)
+		values((select nvl(max(gno), 0)+1 from gallery), #{title}, sysdate, #{writer}, #{content}, #{fname}, #{pw})
+	</insert>
+	
+	<select id="read" parameterType="int" resultType="GalleryDTO">
+		select gno, pw, fname, title, to_char(udate, 'yyyy-MM-dd') as udate, writer, content, viewcnt
+		from gallery
+		where gno = #{gno}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from gallery
+		where gno = #{gno}
+	</delete>
+	
+	<update id="upViewCnt" parameterType="int">
+		update gallery
+		set viewcnt = viewcnt + 1
+		where gno = #{gno}
+	</update>
+	
+	<select id="passwdCheck" parameterType="Map" resultType="int">
+		select count(gno) as cnt
+		from gallery
+		where gno=#{gno} and pw=#{pw}
+	</select>
+	
+	<update id="updatePasswd" parameterType="Map">
+		update gallery
+		set pw = #{newpw}
+		where gno = #{gno}
+	</update>
+	
+	<update id="updateInfo" parameterType="GalleryDTO">
+		update gallery
+		set fname = #{fname}, title = #{title}, writer = #{writer}, content = #{content}
+		where gno = #{gno}
+	</update>
+	
+	<select id="list" parameterType="Map" resultType="GalleryDTO">
+		select gno,title,udate,writer,viewcnt,fname,r           
+			from(select gno,title,udate,writer,viewcnt,fname,rownum as r
+				from(select gno,title,udate,writer,viewcnt,fname       
+				from gallery                                           
+				<where>
+					<if test="col=='title'">
+					title like '%'||#{word}||'%'                    
+					</if>
+					<if test="col=='writer'">
+					writer like '%'||#{word}||'%'                    
+					</if>
+				</where>
+				ORDER BY udate DESC                                     
+			)
+		<![CDATA[
+		)where r >= #{sno} and r <= #{eno}                               
+		]]>
+	</select>
+	
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from gallery
+		<where>
+			<if test="col=='title'">
+			title like '%'||#{word}||'%'                    
+			</if>
+			<if test="col=='writer'">
+			writer like '%'||#{word}||'%'                    
+			</if>
+		</where>
+	</select>
+	
+	<select id="readList" parameterType="int" resultType="Map">
+		SELECT * FROM                                     
+		  (                                                
+		     select                                     
+		         lag(gno,2,-1)     over (order by gno ) pre_gno2, 
+		         lag(gno,1,-1)     over (order by gno ) pre_gno1, 
+		         gno,                                    
+		         lead(gno,1,-1)    over (order by gno ) nex_gno1, 
+		         lead(gno,2,-1)    over (order by gno ) nex_gno2, 
+		         lag(fname,2)  over (order by gno ) pre_fname2,
+		         lag(fname,1)  over (order by gno ) pre_fname1,
+		         fname,                                  
+		         lead(fname,1) over (order by gno ) nex_fname1,
+		         lead(fname,2) over (order by gno ) nex_fname2 
+		         from (                                
+		              SELECT gno, fname                  
+		              FROM gallery                       
+		              ORDER BY gno desc                     
+		         )                                      
+		  ) where gno = #{gno}                                   
+	</select>
+	
+</mapper>

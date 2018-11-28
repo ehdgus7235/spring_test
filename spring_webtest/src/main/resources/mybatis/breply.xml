@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="breply">
+
+	<delete id="delete" parameterType="int">
+		delete from breply
+		where rnum =
+		#{rnum}
+	</delete>
+	<delete id="rdelete" parameterType="int">
+		delete from breply
+		where num =
+		#{num}
+	</delete>
+
+	<insert id="create" parameterType="BreplyDTO">
+		<selectKey keyProperty="rnum" resultType="int"
+			order="BEFORE">
+			select nvl(max(rnum),0)+1 from breply
+		</selectKey>
+		insert into breply(rnum, content, regdate, id, num)
+		values(#{rnum},
+		#{content}, sysdate, #{id}, #{num})
+	</insert>
+
+	<update id="update" parameterType="BreplyDTO">
+		update breply
+		set content = #{content}
+		where rnum = #{rnum}
+	</update>
+	
+	<select id="read" parameterType="int" resultType="BreplyDTO">
+		select * from
+		breply
+		where num = #{num}
+	</select>
+
+
+	<select id="list" parameterType="Map" resultType="BreplyDTO">
+		select rnum,
+		content, to_char(regdate,'yyyy-mm-dd') regdate, id, num, r
+			FROM(
+			select rnum, content, regdate, id, num, rownum r
+				FROM(
+				select rnum, content, regdate, id, num
+					from breply
+					where num = #{num}
+					order by rnum DESC
+					)
+				<![CDATA[
+		)WHERE r >= #{sno} and r <= #{eno}
+		]]>
+	</select>
+
+	<select id="total" parameterType="int" resultType="int">
+		select count(*) from breply where num = #{num}
+	</select>
+</mapper>
+ 
